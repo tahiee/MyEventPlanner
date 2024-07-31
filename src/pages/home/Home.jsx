@@ -63,28 +63,15 @@ export default function Home() {
             }}
           />
         </div>
-        <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-          <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-            <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-              Wish to know how to host a great event?{" "}
-              <a
-                href="/"
-                target="_blank"
-                className="font-semibold text-[#f02e65]"
-              >
-                <span className="absolute inset-0" aria-hidden="true" />
-                Read more <span aria-hidden="true">&rarr;</span>
-              </a>
-            </div>
-          </div>
+        <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-28">
           <div className="text-center">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              Community to the rescue 🚀
+            Plan, Organize, Execute, Celebrate🚀
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
               Events are a great way to connect with like-minded people. They
               also provide a great opportunity to learn and network with others
-              in your field. Get started with Event-Ally to host or join your
+              in your field. Get started with MyEventPlanner to host or join your
               next event.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
@@ -101,17 +88,11 @@ export default function Home() {
               >
                 Get started
               </button>
-              <a
-                href="#"
-                className="text-sm font-semibold leading-6 text-gray-900"
-              >
-                Learn more <span aria-hidden="true">→</span>
-              </a>
             </div>
           </div>
         </div>
         <div
-          className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+          className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-40rem)]"
           aria-hidden="true"
         >
           <div
