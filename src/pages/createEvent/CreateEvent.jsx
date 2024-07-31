@@ -1,10 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { Link } from "react-router-dom";
+import MainNavbar from "../../components/Navbar/MainNavbar";
 
 const CreateEvent = () => {
   return (
     <>
+    <MainNavbar/>
       <div className="max-w-md mx-auto">
         <h2 className="text-2xl text-[#f02e65] font-bold mb-4 my-5">
           Create Event
