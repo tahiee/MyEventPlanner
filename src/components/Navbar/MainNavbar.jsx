@@ -18,13 +18,13 @@ const MainNavbar = () => {
           <img src={logo} height={200} width={200} alt="Product Logo" />
         </Link>
         <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-          <Link className="mr-5 hover:text-gray-900 text-gray-500" to="/myevents">
+          <Link className="mr-5 hover:text-gray-900 text-gray-500" to="/landing">
             My Events
           </Link>
-          <Link className="mr-5 hover:text-gray-900 text-gray-500" to="/events">
+          {/* <Link className="mr-5 hover:text-gray-900 text-gray-500" to="/landing">
             Find Events
-          </Link>
-          <Link className="mr-5 hover:text-gray-900 text-gray-500" to="/CreateEvent">
+          </Link> */}
+          <Link className="mr-5 hover:text-gray-900 text-gray-500" to="/createevent">
             Create Event
           </Link>
         </nav>

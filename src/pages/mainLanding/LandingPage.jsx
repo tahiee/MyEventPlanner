@@ -1,28 +1,28 @@
 import React from "react";
 import { GoBroadcast } from "react-icons/go";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MainNavbar from "../../components/Navbar/MainNavbar";
 
 const LandingPage = () => {
   const navigate = useNavigate();
   return (
     <>
-    <MainNavbar/>
+      <MainNavbar />
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-24 mx-auto">
-          <div className="flex flex-col text-center w-full mb-20">
+          <div className="flex flex-col text-center w-full mb-10">
             <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
               Experience hassle free event
             </h1>
             <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
-              Welcome to our innovative event management application Event-Ally,
-              where organizing and executing unforgettable events becomes
-              effortless. Streamline your planning process and create
-              extraordinary experiences with our intuitive platform.
+              Welcome to our innovative event management application
+              MyEventPlanner, where organizing and executing unforgettable
+              events becomes effortless. Streamline your planning process and
+              create extraordinary experiences with our intuitive platform.
             </p>
           </div>
 
-          <div className="flex flex-wrap -m-4 text-center">
+          {/* <div className="flex flex-wrap -m-4 text-center">
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
               <div className="border-2 border-gray-200 px-4 py-6 rounded-lg">
                 <svg
@@ -103,17 +103,19 @@ const LandingPage = () => {
                 <p className="leading-relaxed">Places</p>
               </div>
             </div>
-          </div>
-          <div className="flex items-center justify-center py-20">
-            <button
-              className="bg-[#f02e65] py-5 px-8 focus:outline-none hover:bg-[#ab073d] rounded-full"
-              onClick={() => navigate("")}
-            >
-              <div className="flex align-items-center gap-1 justify-center mx-auto">
-                <GoBroadcast className="text-xl my-auto text-white" />
-                <p className="text-xl my-1 text-white">Create Event</p>
-              </div>
-            </button>
+          </div> */}
+          <div className="flex items-center justify-center py-10">
+            <Link to="/createevent">
+              <button
+                className="bg-[#f02e65] py-5 px-8 focus:outline-none hover:bg-[#ab073d] rounded-full"
+                onClick={() => navigate("")}
+              >
+                <div className="flex align-items-center gap-1 justify-center mx-auto">
+                  <GoBroadcast className="text-xl my-auto text-white" />
+                  <p className="text-xl my-1 text-white">Create Event</p>
+                </div>
+              </button>
+            </Link>
           </div>
         </div>
       </section>
