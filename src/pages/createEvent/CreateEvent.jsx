@@ -1,12 +1,15 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import MainNavbar from "../../components/Navbar/MainNavbar";
 
 const CreateEvent = () => {
+  const [eventName, setEventName] = useState("");
+  const [description, setDescription] = useState("");
+
   return (
     <>
-    <MainNavbar/>
+      <MainNavbar />
       <div className="max-w-md mx-auto">
         <h2 className="text-2xl text-[#f02e65] font-bold mb-4 my-5">
           Create Event
@@ -17,7 +20,7 @@ const CreateEvent = () => {
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div className="sm:col-span-4">
                   <label
-                    // for="eventname"
+                    htmlFor="eventname"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Event Name
@@ -25,11 +28,12 @@ const CreateEvent = () => {
                   <div className="mt-2">
                     <input
                       id="eventname"
-                      autoComplete="given-name"
+                      autoComplete="off"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       type="text"
-                      value=" "
+                      value={eventName}
                       name="eventname"
+                      onChange={(e) => setEventName(e.target.value)}
                     />
                   </div>
                 </div>
@@ -39,15 +43,14 @@ const CreateEvent = () => {
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Description
-                    <span className="text-gray-600 px-3">
-                      (Markdown will be suported soon)
-                    </span>
                   </label>
                   <div className="mt-2">
                     <textarea
                       id="description"
                       name="description"
                       rows="3"
+                      value={description}
+                      onChange={(e)=> setDescription(e.target.value)}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     ></textarea>
                   </div>
@@ -211,45 +214,6 @@ const CreateEvent = () => {
                     />
                   </div>
                 </div>
-                <div className="sm:col-span-4 py-2">
-                  <p className="block text-sm font-medium leading-6 text-gray-900 y-2">
-                    Enter Sponsor's details
-                  </p>
-                  <p className="block text-sm font-medium leading-6 text-gray-600 y-2">
-                    (Enter Link including https://)
-                  </p>
-                </div>
-              </div>
-              <div className="flex field-container py-2 px-2">
-                <input
-                  placeholder="Sponsor Name"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  type="text"
-                  value=""
-                />
-                <input
-                  placeholder="Sponsor Link"
-                  pattern="https://.*"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  type="text"
-                  value=""
-                />
-                <div className="px-5">
-                  <button
-                    type="button"
-                    className="rounded-md bg-red-500 text-white px-2 py-2"
-                  >
-                    Remove
-                  </button>
-                </div>
-              </div>
-              <div className="py-5">
-                <button
-                  type="button"
-                  className="rounded bg-blue-500 text-white px-4 py-2"
-                >
-                  Add Sponsor
-                </button>
               </div>
             </div>
             <div className="border-b border-gray-900/10 pb-12">
@@ -417,44 +381,6 @@ const CreateEvent = () => {
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div className="sm:col-span-3">
                   <label
-                    // for="twitterl"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Twitter link
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="twitter"
-                      placeholder="https://www.twitter.com/"
-                      pattern="https://.*"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      type="text"
-                      value=" "
-                      name="twitter"
-                    />
-                  </div>
-                </div>
-                <div className="sm:col-span-3">
-                  <label
-                    // for="linkedinl"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    LinkedIn link
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="linkedin"
-                      placeholder="https://www.linkedin.com/"
-                      pattern="https://.*"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      type="text"
-                      value=" "
-                      name="linkedin"
-                    />
-                  </div>
-                </div>
-                <div className="sm:col-span-3">
-                  <label
                     // for="websitel"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
@@ -547,12 +473,12 @@ const CreateEvent = () => {
               Save
             </button>
             <Link to="/landing">
-            <button
-              type="submit"
-              className="rounded-md bg-[#f02e65] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#f02e65] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f02e65]"
-            >
-              Go Back
-            </button>
+              <button
+                type="submit"
+                className="rounded-md bg-[#f02e65] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#f02e65] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f02e65]"
+              >
+                Go Back
+              </button>
             </Link>
           </div>
         </form>
