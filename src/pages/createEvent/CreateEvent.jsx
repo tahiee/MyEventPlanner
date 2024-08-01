@@ -2,11 +2,79 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import MainNavbar from "../../components/Navbar/MainNavbar";
-
+ 
 const CreateEvent = () => {
   const [eventName, setEventName] = useState("");
   const [description, setDescription] = useState("");
+  const [banner, setBanner] = useState("");
+  const [audience, setAudience] = useState("");
+  const [eventType, setEventType] = useState("");
+  const [attendees, setAttendees] = useState(0);
+  const [price, setPrice] = useState(0);
+  const [tech, setTech] = useState("Yes");
+  const [agenda, setAgenda] = useState("");
+  const [hostname, setHostname] = useState("");
+  const [eventdate, setEventDate] = useState("");
+  const [email, setEmail] = useState("");
+  const [country, setCountry] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [postal, setPostal] = useState("");
+  const [website, setWebsite] = useState("");
+  const [instagram, setInstagram] = useState("");
+ 
+ 
 
+ 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const eventData = {
+      eventname: eventName,
+      description,
+      banner,
+      audience,
+      type: eventType,
+      attendees,
+      price,
+      tech,
+      agenda,
+      hostname,
+      eventdate,
+      email,
+      country,
+      address,
+      city,
+      state,
+      postal,
+      socialLinks: {
+        website,
+        instagram
+      },
+      approval: "yes"
+    };
+ 
+    fetch("http://localhost:7000/createEvent", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(eventData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+ 
+ 
+ 
+ 
+ 
+ 
   return (
     <>
       <MainNavbar />
@@ -14,7 +82,7 @@ const CreateEvent = () => {
         <h2 className="text-2xl text-[#f02e65] font-bold mb-4 my-5">
           Create Event
         </h2>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="space-y-12">
             <div className="border-b border-gray-900/10 pb-12">
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -90,6 +158,7 @@ const CreateEvent = () => {
                           pattern="/(\.jpg|\.jpeg|\.png|\.gif)$/i"
                           className="border-2 rounded-md w-full px-3 py-2 mt-1"
                           type="file"
+                          onChange={(e) => setBanner(e.target.files[0])}
                         />
                       </div>
                       <p className="text-xs leading-5 text-gray-600">
@@ -118,11 +187,13 @@ const CreateEvent = () => {
                   <div className="mt-2">
                     <input
                       id="audience"
+                      value={audience}
+                      name="audience"
                       placeholder="Ex: Developers, Designers"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       type="text"
-                      value=" "
-                      name="audience"
+                      onChange={(e) => setAudience(e.target.value)}
+                     
                     />
                   </div>
                 </div>
@@ -137,7 +208,9 @@ const CreateEvent = () => {
                     <select
                       id="type"
                       name="type"
+                      value={eventType}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                      onChange={(e) => setEventType(e.target.value)}
                     >
                       <option selected="selected">In Person</option>
                       <option>Virtual</option>
@@ -156,8 +229,9 @@ const CreateEvent = () => {
                       id="attendees"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       type="number"
-                      value="0"
+                      value={attendees}
                       name="attendees"
+                      onChange={(e) => setAttendees(e.target.value)}
                     />
                   </div>
                 </div>
@@ -173,8 +247,9 @@ const CreateEvent = () => {
                       id="price"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       type="number"
-                      value="0"
+                      value={price}
                       name="price"
+                      onChange={(e) => setPrice(e.target.value)}
                     />
                   </div>
                 </div>
@@ -209,8 +284,9 @@ const CreateEvent = () => {
                       id="agenda"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       type="text"
-                      value=" "
+                      value={agenda}
                       name="agenda"
+                      onChange={(e) => setAgenda(e.target.value)}
                     />
                   </div>
                 </div>
@@ -237,8 +313,9 @@ const CreateEvent = () => {
                       autoComplete="given-name"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       type="text"
-                      value=" "
+                      value={hostname}
                       name="hostname"
+                      onChange={(e) => setHostname(e.target.value)}
                     />
                   </div>
                 </div>
@@ -254,8 +331,9 @@ const CreateEvent = () => {
                       id="eventdate"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       type="date"
-                      value=""
+                      value={eventdate}
                       name="eventdate"
+                      onChange={(e) => setEventDate(e.target.value)}
                     />
                   </div>
                 </div>
@@ -273,8 +351,9 @@ const CreateEvent = () => {
                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       type="email"
-                      value=""
+                      value={email}
                       name="email"
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                   </div>
                 </div>
@@ -291,8 +370,9 @@ const CreateEvent = () => {
                       autoComplete="country"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       type="text"
-                      value=" "
+                      value={country}
                       name="country"
+                      onChange={(e) => setCountry(e.target.value)}
                     />
                   </div>
                 </div>
@@ -309,8 +389,9 @@ const CreateEvent = () => {
                       autoComplete="street-address"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       type="text"
-                      value=" "
+                      value={address}
                       name="address"
+                      onChange={(e) => setAddress(e.target.value)}
                     />
                   </div>
                 </div>
@@ -327,8 +408,9 @@ const CreateEvent = () => {
                       autoComplete="address-level2"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       type="text"
-                      value=" "
+                      value={city}
                       name="city"
+                      onChange={(e) => setCity(e.target.value)}
                     />
                   </div>
                 </div>
@@ -345,8 +427,9 @@ const CreateEvent = () => {
                       autoComplete="address-level1"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       type="text"
-                      value=""
+                      value={state}
                       name="state"
+                      onChange={(e) => setState(e.target.value)}
                     />
                   </div>
                 </div>
@@ -363,8 +446,9 @@ const CreateEvent = () => {
                       autoComplete="postal-code"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       type="text"
-                      value=" "
+                      value={postal}
                       name="postal"
+                      onChange={(e) => setPostal(e.target.value)}
                     />
                   </div>
                 </div>
@@ -393,8 +477,9 @@ const CreateEvent = () => {
                       pattern="https://.*"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       type="text"
-                      value=" "
+                      value={website}
                       name="website"
+                      onChange={(e) => setWebsite(e.target.value)}
                     />
                   </div>
                 </div>
@@ -412,14 +497,15 @@ const CreateEvent = () => {
                       pattern="https://.*"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       type="text"
-                      value=" "
+                      value={instagram}
                       name="instagram"
+                      onChange={(e) => setInstagram(e.target.value)}
                     />
                   </div>
                 </div>
               </div>
             </div>
-            <div className="border-b border-gray-900/10 pb-12">
+            {/* <div className="border-b border-gray-900/10 pb-12">
               <div className="mt-10 space-y-10">
                 <fieldset>
                   <legend className="text-sm font-semibold leading-6 text-gray-900">
@@ -463,7 +549,7 @@ const CreateEvent = () => {
                   </div>
                 </fieldset>
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="mt-6 flex items-center justify-center gap-x-6 py-5">
             <button
@@ -486,5 +572,7 @@ const CreateEvent = () => {
     </>
   );
 };
-
+ 
 export default CreateEvent;
+ 
+ 

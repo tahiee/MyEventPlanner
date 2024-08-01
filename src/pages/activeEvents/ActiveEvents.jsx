@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { Link } from "react-router-dom";
+import img from '../../images/original.avif'
 
 const ActiveEvents = () => {
   return (
@@ -18,7 +19,7 @@ const ActiveEvents = () => {
                     <img
                       className="object-cover object-center rounded"
                       alt="hero"
-                      src="dtc%20june%20speakers.png"
+                      src={img}
                     />
                   </div>
                   <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">

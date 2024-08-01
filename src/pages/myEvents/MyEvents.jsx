@@ -1,5 +1,6 @@
 import React from "react";
 import MainNavbar from "../../components/Navbar/MainNavbar";
+import img from '../../images/Myeventplanner__1_-removebg-preview.png'
 
 const MyEvents = () => {
   return (
@@ -14,10 +15,6 @@ const MyEvents = () => {
           <div></div>
           <div></div>
           <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
           <div className="py-2">
             <section className="text-gray-600 body-font">
               <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
@@ -25,7 +22,7 @@ const MyEvents = () => {
                   <img
                     className="object-cover object-center rounded"
                     alt="hero"
-                    src="b65932c85d0dda30ff2f51f6c60fcceb%20[MConverter.eu].png"
+                    src={img}
                   />
                 </div>
                 <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
