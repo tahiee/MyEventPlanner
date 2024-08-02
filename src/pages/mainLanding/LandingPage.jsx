@@ -3,7 +3,7 @@ import { GoBroadcast } from "react-icons/go";
 import { Link, useNavigate } from "react-router-dom";
 import MainNavbar from "../../components/Navbar/MainNavbar";
 import ActiveEvents from "../activeEvents/ActiveEvents";
-import useAuth from '../../components/hoc/UseAuth';
+import useAuth from "../../components/UseAuth";
 
 const LandingPage = () => {
   const navigate = useNavigate();
