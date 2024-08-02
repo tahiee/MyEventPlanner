@@ -2,11 +2,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import MainNavbar from "../../components/Navbar/MainNavbar";
- 
+
 const CreateEvent = () => {
   const [eventName, setEventName] = useState("");
   const [description, setDescription] = useState("");
-  const [banner, setBanner] = useState("");
+  const [banner, setBanner] = useState(null); // Change to null to store the file
   const [audience, setAudience] = useState("");
   const [eventType, setEventType] = useState("");
   const [attendees, setAttendees] = useState(0);
@@ -23,43 +23,39 @@ const CreateEvent = () => {
   const [postal, setPostal] = useState("");
   const [website, setWebsite] = useState("");
   const [instagram, setInstagram] = useState("");
- 
- 
 
- 
+  const handleFileChange = (e) => {
+    setBanner(e.target.files[0]);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const eventData = {
-      eventname: eventName,
-      description,
-      banner,
-      audience,
-      type: eventType,
-      attendees,
-      price,
-      tech,
-      agenda,
-      hostname,
-      eventdate,
-      email,
-      country,
-      address,
-      city,
-      state,
-      postal,
-      socialLinks: {
-        website,
-        instagram
-      },
-      approval: "yes"
-    };
- 
-    fetch("http://localhost:7000/createEvent", {
+
+    const formData = new FormData();
+    formData.append('eventname', eventName);
+    formData.append('description', description);
+    formData.append('banner', banner);
+    formData.append('audience', audience);
+    formData.append('type', eventType);
+    formData.append('attendees', attendees);
+    formData.append('price', price);
+    formData.append('tech', tech);
+    formData.append('agenda', agenda);
+    formData.append('hostname', hostname);
+    formData.append('eventdate', eventdate);
+    formData.append('email', email);
+    formData.append('country', country);
+    formData.append('address', address);
+    formData.append('city', city);
+    formData.append('state', state);
+    formData.append('postal', postal);
+    formData.append('website', website);
+    formData.append('instagram', instagram);
+    formData.append('approval', 'yes');
+
+    fetch("http://localhost:4001/createevent", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(eventData),
+      body: formData,
     })
       .then((response) => response.json())
       .then((data) => {
@@ -69,12 +65,8 @@ const CreateEvent = () => {
         console.error("Error:", error);
       });
   };
- 
- 
- 
- 
- 
- 
+
+
   return (
     <>
       <MainNavbar />
@@ -118,7 +110,7 @@ const CreateEvent = () => {
                       name="description"
                       rows="3"
                       value={description}
-                      onChange={(e)=> setDescription(e.target.value)}
+                      onChange={(e) => setDescription(e.target.value)}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     ></textarea>
                   </div>
@@ -155,10 +147,11 @@ const CreateEvent = () => {
                         <input
                           id="banner"
                           accept="image/*"
+                          onChange={handleFileChange}
                           pattern="/(\.jpg|\.jpeg|\.png|\.gif)$/i"
                           className="border-2 rounded-md w-full px-3 py-2 mt-1"
                           type="file"
-                          onChange={(e) => setBanner(e.target.files[0])}
+                          
                         />
                       </div>
                       <p className="text-xs leading-5 text-gray-600">
@@ -193,7 +186,7 @@ const CreateEvent = () => {
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       type="text"
                       onChange={(e) => setAudience(e.target.value)}
-                     
+
                     />
                   </div>
                 </div>
@@ -264,6 +257,8 @@ const CreateEvent = () => {
                     <select
                       id="tech"
                       name="tech"
+                      value={tech}
+                      onChange={(e)=> setTech(e.target.value)}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                     >
                       <option selected="selected">Yes</option>
@@ -572,7 +567,6 @@ const CreateEvent = () => {
     </>
   );
 };
- 
+
 export default CreateEvent;
- 
- 
+
