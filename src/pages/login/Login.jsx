@@ -4,23 +4,23 @@ import logo from "../../images/Myeventplanner__1_-removebg-preview.png";
 import axios from "axios";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("test@test.com");
+  const [password, setPassword] = useState("test");
   const navigate = useNavigate();
 
-  const handleChange = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+    console.log(email);
+    console.log(password);
+
     try {
-        const response = await fetch("http://localhost:4001/api/auth/register", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ email, password }), // Ensure this password is 'testtest12'
+        const response = await axios.post("http://localhost:4001/api/auth/login", {
+            email,
+            password
         });
 
-        const data = await response.json();
-        if (response.ok) {
+        const data = response.data;
+        if (response.status === 200) {
             alert(data.message);
             localStorage.setItem('token', data.token);
             navigate("/landing");
@@ -28,9 +28,12 @@ const Login = () => {
             alert(data.message);
         }
     } catch (error) {
-        alert("Error:", error.message);
+        console.error("Login Error:", error);
+        alert(error.response ? error.response.data.message : "An error occurred during login.");
     }
 };
+
+
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center">
       <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md d-flex justify-center items-center">
@@ -40,7 +43,7 @@ const Login = () => {
         <div className="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
           <form
             className="justify-center items-center text-center"
-            onSubmit={handleChange}
+            onSubmit={handleLogin}
           >
             <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
               <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -62,6 +65,7 @@ const Login = () => {
                         id="email"
                         name="email"
                         type="email"
+                        // value='test@test.com'
                         autoComplete="email"
                         onChange={(e) => setEmail(e.target.value)}
                         required
@@ -91,6 +95,7 @@ const Login = () => {
                         id="password"
                         name="password"
                         type="password"
+                        // value='test'
                         onChange={(e) => setPassword(e.target.value)}
                         autoComplete="current-password"
                         required
@@ -114,7 +119,7 @@ const Login = () => {
                     >
                       Register
                     </button>
-                    </Link>
+                </Link>
               </div>
             </div>
           </form>

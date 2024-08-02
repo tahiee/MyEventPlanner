@@ -4,30 +4,37 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../../images/Myeventplanner__1_-removebg-preview.png";
 
 const Signup = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  
+  const [email, setEmail] = useState("test@test.com");
+  const [password, setPassword] = useState("test");
+  const navigate = useNavigate();
+
   const handleChange = async (e) => {
     e.preventDefault();
+
     try {
         const response = await fetch("http://localhost:4001/api/auth/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ email, password }), // Ensure this password is 'testtest12'
+            body: JSON.stringify({ email, password }),
         });
 
         const data = await response.json();
+
         if (response.ok) {
+            // Debugging: Print response data
+            console.log('Response Data:', data);
+
             alert(data.message);
             localStorage.setItem('token', data.token);
-            navigate("/landing");
+            navigate("/login");
         } else {
-            alert(data.message);
+            alert(data.message || 'Registration failed'); 
         }
     } catch (error) {
-        alert("Error:", error.message);
+        console.error("Error:", error);
+        alert("Error:", error.message); 
     }
 };
   return (
@@ -63,6 +70,7 @@ const Signup = () => {
                         name="email"
                         type="email"
                         autoComplete="email"
+                        // value='test@test.com'
                         onChange={(e) => setEmail(e.target.value)}
                         required
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -91,6 +99,7 @@ const Signup = () => {
                         id="password"
                         name="password"
                         type="password"
+                        // value='test'
                         onChange={(e) => setPassword(e.target.value)}
                         autoComplete="current-password"
                         required
