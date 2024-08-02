@@ -7,7 +7,7 @@ const MainNavbar = () => {
 
   const handleSignOut = () => {
     localStorage.removeItem("token");
-    navigate("/signup");
+    navigate("/login");
     alert('SignOut Successfully')
   };
 
