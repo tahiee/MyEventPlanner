@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const useAuth = () => {
+export const useAuth = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
@@ -14,4 +14,4 @@ const useAuth = () => {
   return token;
 };
 
-export default useAuth;
+
