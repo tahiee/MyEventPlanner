@@ -2,10 +2,16 @@ import { useState } from "react";
 import { GoBroadcast } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import SpecialNavbar from "./SpecialNavbar";
+import useAuth from './hoc/UseAuth';
 
-export default function Body() {
+export default function LandingPage() {
   const navigate = useNavigate();
-  
+  const token = useAuth();
+
+  if (!token) {
+    return null; // or a loading spinner while redirecting
+  }
+
   return (
     <>
             <SpecialNavbar/>

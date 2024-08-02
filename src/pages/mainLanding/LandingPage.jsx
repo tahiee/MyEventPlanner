@@ -3,9 +3,16 @@ import { GoBroadcast } from "react-icons/go";
 import { Link, useNavigate } from "react-router-dom";
 import MainNavbar from "../../components/Navbar/MainNavbar";
 import ActiveEvents from "../activeEvents/ActiveEvents";
+import useAuth from '../../components/hoc/UseAuth';
 
 const LandingPage = () => {
   const navigate = useNavigate();
+  const token = useAuth();
+
+  if (!token) {
+    return null; // or a loading spinner while redirecting
+  }
+
   return (
     <>
       <MainNavbar />

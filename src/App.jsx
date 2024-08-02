@@ -8,6 +8,7 @@ import LandingPage from "./pages/mainLanding/LandingPage";
 import CreateEvent from "./pages/createEvent/CreateEvent";
 import MyEvents from "./pages/myEvents/MyEvents";
 import RegisterEvent from "./pages/registerEvent/RegisterEvent";
+import Login from "./pages/login/Login";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
+          <Route path="/login" element={<Login />}></Route>
           <Route path="/landing" element={<LandingPage />}></Route>
           <Route path="/createevent" element={<CreateEvent />}></Route>
           <Route path="/myevents" element={<MyEvents />}></Route>

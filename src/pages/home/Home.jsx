@@ -80,9 +80,9 @@ export default function Home() {
                 className="rounded-md bg-[#f02e65] px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#990e3c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 onClick={() => {
                   if (localStorage.getItem("userInfo") != null) {
-                    navigate("/login");
-                  } else {
                     navigate("/signup");
+                  } else {
+                    navigate("/login");
                   }
                 }}
               >
