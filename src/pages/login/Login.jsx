@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../images/Myeventplanner__1_-removebg-preview.png";
 import axios from "axios";
+import { baseURL } from '../../constent';
 
 const Login = () => {
   const [email, setEmail] = useState("test@test.com");
@@ -14,7 +15,7 @@ const Login = () => {
     console.log(password);
 
     try {
-        const response = await axios.post("http://localhost:4001/api/auth/login", {
+        const response = await axios.post(`${baseURL}/api/auth/login`, {
             email,
             password
         });

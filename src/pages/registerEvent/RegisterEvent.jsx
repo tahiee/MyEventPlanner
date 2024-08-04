@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import img from '../../images/original.avif'
-import MainNavbar from "../../components/Navbar/MainNavbar";
+import MainNavbar from "../../Components/Navbar/MainNavbar.jsx";
 
 const RegisterEvent = () => {
   return (

@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../images/Myeventplanner__1_-removebg-preview.png";
+import { baseURL } from '../../constent';
 
 const Signup = () => {
   const [email, setEmail] = useState("test@test.com");
@@ -12,7 +13,7 @@ const Signup = () => {
     e.preventDefault();
 
     try {
-        const response = await fetch("http://localhost:4001/api/auth/register", {
+        const response = await fetch(`${baseURL}/api/auth/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

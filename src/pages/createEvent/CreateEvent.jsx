@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import MainNavbar from "../../components/Navbar/MainNavbar";
+import MainNavbar from "../../Components/Navbar/MainNavbar";
+import { baseURL } from "../../constent";
 
 const CreateEvent = () => {
   const [eventName, setEventName] = useState("");
@@ -53,7 +54,7 @@ const CreateEvent = () => {
     formData.append('instagram', instagram);
     formData.append('approval', 'yes');
 
-    fetch("http://localhost:4001/createevent", {
+    fetch(`${baseURL}/createevent`, {
       method: "POST",
       body: formData,
     })
