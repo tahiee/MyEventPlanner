@@ -1,5 +1,5 @@
 import React from "react";
-import MainNavbar from "../../Components/Navbar/MainNavbar";
+import MainNavbar from "../../components/Navbar/MainNavbar";
 import img from '../../images/Myeventplanner__1_-removebg-preview.png'
 
 const MyEvents = () => {
