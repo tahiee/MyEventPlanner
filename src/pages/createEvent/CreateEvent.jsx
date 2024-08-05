@@ -24,6 +24,7 @@ const CreateEvent = () => {
 
   const handleFileChange = (e) => {
     setBanner(e.target.files[0]);
+    console.log(e);
   };
 
   const handleSubmit = (e) => {
