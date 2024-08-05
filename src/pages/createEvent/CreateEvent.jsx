@@ -5,25 +5,22 @@ import MainNavbar from "../../components/Navbar/MainNavbar";
 import { baseURL } from "../../constent";
 
 const CreateEvent = () => {
-  const [eventName, setEventName] = useState("");
-  const [description, setDescription] = useState("");
-  const [banner, setBanner] = useState(null); // Change to null to store the file
-  const [audience, setAudience] = useState("");
-  const [eventType, setEventType] = useState("");
-  const [attendees, setAttendees] = useState(0);
-  const [price, setPrice] = useState(0);
-  const [tech, setTech] = useState("Yes");
-  const [agenda, setAgenda] = useState("");
-  const [hostname, setHostname] = useState("");
-  const [eventdate, setEventDate] = useState("");
-  const [email, setEmail] = useState("");
-  const [country, setCountry] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [postal, setPostal] = useState("");
-  const [website, setWebsite] = useState("");
-  const [instagram, setInstagram] = useState("");
+  const [eventName, setEventName] = useState('');
+  const [eventdate, setEventDate] = useState('');
+  const [description, setDescription] = useState('');
+  const [banner, setBanner] = useState(null);
+  const [audience, setAudience] = useState('');
+  const [eventType, setEventType] = useState('');
+  const [price, setPrice] = useState('');
+  const [tech, setTech] = useState('');
+  const [agenda, setAgenda] = useState('');
+  const [hostname, setHostname] = useState('');
+  const [email, setEmail] = useState('');
+  const [country, setCountry] = useState('');
+  const [city, setCity] = useState('');
+  const [address, setAddress] = useState('');
+  const [website, setWebsite] = useState('');
+  const [instagram, setInstagram] = useState('');
 
   const handleFileChange = (e) => {
     setBanner(e.target.files[0]);
@@ -36,50 +33,50 @@ const CreateEvent = () => {
     formData.append('eventname', eventName);
     formData.append('description', description);
     formData.append('banner', banner);
-    formData.append('audience', audience);
     formData.append('type', eventType);
-    formData.append('attendees', attendees);
     formData.append('price', price);
     formData.append('tech', tech);
     formData.append('agenda', agenda);
     formData.append('hostname', hostname);
     formData.append('eventdate', eventdate);
+    formData.append('audience', audience);
     formData.append('email', email);
     formData.append('country', country);
     formData.append('address', address);
     formData.append('city', city);
-    formData.append('state', state);
-    formData.append('postal', postal);
     formData.append('website', website);
     formData.append('instagram', instagram);
-    formData.append('approval', 'yes');
 
     fetch(`${baseURL}/createevent`, {
-      method: "POST",
+      method: 'POST',
       body: formData,
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then((data) => {
-        console.log("Success:", data);
+        console.log('Success:', data);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        console.error('Error:', error);
       });
   };
-
 
   return (
     <>
       <MainNavbar />
       <div className="max-w-md mx-auto">
         <h2 className="text-2xl text-[#f02e65] font-bold mb-4 my-5">
-          Create Event
+          Create New Event
         </h2>
         <form onSubmit={handleSubmit}>
           <div className="space-y-12">
             <div className="border-b border-gray-900/10 pb-12">
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                <div className="sm:col-span-4">
+                <div className="sm:col-span-3">
                   <label
                     htmlFor="eventname"
                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -95,6 +92,24 @@ const CreateEvent = () => {
                       value={eventName}
                       name="eventname"
                       onChange={(e) => setEventName(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="sm:col-span-3">
+                  <label
+                    // for="eventdate"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Event Date
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      id="eventdate"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      type="date"
+                      value={eventdate}
+                      name="eventdate"
+                      onChange={(e) => setEventDate(e.target.value)}
                     />
                   </div>
                 </div>
@@ -152,7 +167,7 @@ const CreateEvent = () => {
                           pattern="/(\.jpg|\.jpeg|\.png|\.gif)$/i"
                           className="border-2 rounded-md w-full px-3 py-2 mt-1"
                           type="file"
-                          
+
                         />
                       </div>
                       <p className="text-xs leading-5 text-gray-600">
@@ -213,24 +228,6 @@ const CreateEvent = () => {
                 </div>
                 <div className="sm:col-span-4">
                   <label
-                    // for="attendees"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Expected Number of Audience
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="attendees"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      type="number"
-                      value={attendees}
-                      name="attendees"
-                      onChange={(e) => setAttendees(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <div className="sm:col-span-4">
-                  <label
                     // for="price"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
@@ -252,14 +249,14 @@ const CreateEvent = () => {
                     // for="tech"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    Tech Focused
+                    Wifi Available
                   </label>
                   <div className="mt-2">
                     <select
                       id="tech"
                       name="tech"
                       value={tech}
-                      onChange={(e)=> setTech(e.target.value)}
+                      onChange={(e) => setTech(e.target.value)}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                     >
                       <option selected="selected">Yes</option>
@@ -315,25 +312,8 @@ const CreateEvent = () => {
                     />
                   </div>
                 </div>
+
                 <div className="sm:col-span-3">
-                  <label
-                    // for="eventdate"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Event Date
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="eventdate"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      type="date"
-                      value={eventdate}
-                      name="eventdate"
-                      onChange={(e) => setEventDate(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <div className="sm:col-span-4">
                   <label
                     // for="email"
                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -372,6 +352,25 @@ const CreateEvent = () => {
                     />
                   </div>
                 </div>
+                <div className="sm:col-span-3 ">
+                  <label
+                    // for="city"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    City
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      id="city"
+                      autoComplete="address-level2"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      type="text"
+                      value={city}
+                      name="city"
+                      onChange={(e) => setCity(e.target.value)}
+                    />
+                  </div>
+                </div>
                 <div className="col-span-full">
                   <label
                     // for="address"
@@ -391,26 +390,8 @@ const CreateEvent = () => {
                     />
                   </div>
                 </div>
-                <div className="sm:col-span-2 sm:col-start-1">
-                  <label
-                    // for="city"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    City
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="city"
-                      autoComplete="address-level2"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      type="text"
-                      value={city}
-                      name="city"
-                      onChange={(e) => setCity(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <div className="sm:col-span-2">
+
+                {/* <div className="sm:col-span-2">
                   <label
                     // for="state"
                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -428,8 +409,8 @@ const CreateEvent = () => {
                       onChange={(e) => setState(e.target.value)}
                     />
                   </div>
-                </div>
-                <div className="sm:col-span-2">
+                </div> */}
+                {/* <div className="sm:col-span-2">
                   <label
                     // for="postal"
                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -447,7 +428,7 @@ const CreateEvent = () => {
                       onChange={(e) => setPostal(e.target.value)}
                     />
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="border-b border-gray-900/10 pb-12">
