@@ -22,9 +22,9 @@ const MainNavbar = () => {
             <Link className="mr-5 hover:text-gray-900 text-gray-500" to="/myevents">
               My Events
             </Link>
-            <Link className="mr-5 hover:text-gray-900 text-gray-500" to="/createevent">
+            {/* <Link className="mr-5 hover:text-gray-900 text-gray-500" to="/createevent">
               Create Event
-            </Link>
+            </Link> */}
           </nav>
           <button
             className="inline-flex items-center bg-[#f02e65] border-0 py-1 px-3 focus:outline-none hover:bg-[#ab073d] rounded-full text-base mt-4 md:mt-0"

@@ -21,7 +21,7 @@ const CreateEvent = () => {
   const [address, setAddress] = useState('');
   const [website, setWebsite] = useState('');
   const [instagram, setInstagram] = useState('');
-
+  
   const handleFileChange = (e) => {
     setBanner(e.target.files[0]);
     console.log(e);
@@ -31,6 +31,7 @@ const CreateEvent = () => {
     e.preventDefault();
 
     const formData = new FormData();
+    console.log(formData);
     formData.append('eventname', eventName);
     formData.append('description', description);
     formData.append('banner', banner);
@@ -48,21 +49,29 @@ const CreateEvent = () => {
     formData.append('website', website);
     formData.append('instagram', instagram);
 
-    fetch(`${baseURL}/createevent`, {
+    const token = localStorage.getItem('token'); // Example for fetching token from localStorage
+    
+    // fetch(`${baseURL}/createevent`, {
+      fetch('http://localhost:4001/api/auth/createevent', {
       method: 'POST',
       body: formData,
+      headers: {
+        'Authorization': `Bearer ${token}`, // Replace `yourToken` with the actual token
+      },
     })
       .then((response) => {
         if (!response.ok) {
+          alert('response nhi ho rha')
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.json();
       })
       .then((data) => {
         console.log('Success:', data);
+        alert('Event Created Successfuly');
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.error('Error aarha yahn:', error);
       });
   };
 
@@ -98,7 +107,6 @@ const CreateEvent = () => {
                 </div>
                 <div className="sm:col-span-3">
                   <label
-                    // for="eventdate"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Event Date
@@ -116,7 +124,7 @@ const CreateEvent = () => {
                 </div>
                 <div className="col-span-full">
                   <label
-                    // for="description"
+
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Description
@@ -137,7 +145,7 @@ const CreateEvent = () => {
                 </div>
                 <div className="col-span-full">
                   <label
-                    // for="banner"
+
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Banner photo
@@ -189,7 +197,7 @@ const CreateEvent = () => {
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div className="sm:col-span-3">
                   <label
-                    // for="audience"
+
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Target Audience
@@ -209,7 +217,7 @@ const CreateEvent = () => {
                 </div>
                 <div className="sm:col-span-3">
                   <label
-                    // for="type"
+
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Event Type
@@ -229,7 +237,7 @@ const CreateEvent = () => {
                 </div>
                 <div className="sm:col-span-4">
                   <label
-                    // for="price"
+
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Ticket Price (Enter 0 if free)
@@ -247,7 +255,7 @@ const CreateEvent = () => {
                 </div>
                 <div className="sm:col-span-3">
                   <label
-                    // for="tech"
+
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Wifi Available
@@ -268,7 +276,7 @@ const CreateEvent = () => {
                 </div>
                 <div className="sm:col-span-3">
                   <label
-                    // for="agenda"
+
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Agenda
@@ -296,7 +304,7 @@ const CreateEvent = () => {
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div className="sm:col-span-3">
                   <label
-                    // for="hostname"
+
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Host Name
@@ -316,7 +324,7 @@ const CreateEvent = () => {
 
                 <div className="sm:col-span-3">
                   <label
-                    // for="email"
+
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Contact Email address
@@ -336,7 +344,7 @@ const CreateEvent = () => {
                 </div>
                 <div className="sm:col-span-3">
                   <label
-                    // for="country"
+
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Country
@@ -355,7 +363,7 @@ const CreateEvent = () => {
                 </div>
                 <div className="sm:col-span-3 ">
                   <label
-                    // for="city"
+
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     City
@@ -374,7 +382,7 @@ const CreateEvent = () => {
                 </div>
                 <div className="col-span-full">
                   <label
-                    // for="address"
+
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Street address
@@ -391,45 +399,6 @@ const CreateEvent = () => {
                     />
                   </div>
                 </div>
-
-                {/* <div className="sm:col-span-2">
-                  <label
-                    // for="state"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    State / Province
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="state"
-                      autoComplete="address-level1"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      type="text"
-                      value={state}
-                      name="state"
-                      onChange={(e) => setState(e.target.value)}
-                    />
-                  </div>
-                </div> */}
-                {/* <div className="sm:col-span-2">
-                  <label
-                    // for="postal"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    ZIP / Postal code
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="postal"
-                      autoComplete="postal-code"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      type="text"
-                      value={postal}
-                      name="postal"
-                      onChange={(e) => setPostal(e.target.value)}
-                    />
-                  </div>
-                </div> */}
               </div>
             </div>
             <div className="border-b border-gray-900/10 pb-12">
@@ -443,7 +412,7 @@ const CreateEvent = () => {
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div className="sm:col-span-3">
                   <label
-                    // for="websitel"
+
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Website link
@@ -463,7 +432,7 @@ const CreateEvent = () => {
                 </div>
                 <div className="sm:col-span-3">
                   <label
-                    // for="instagraml"
+
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Instagram link
@@ -483,51 +452,6 @@ const CreateEvent = () => {
                 </div>
               </div>
             </div>
-            {/* <div className="border-b border-gray-900/10 pb-12">
-              <div className="mt-10 space-y-10">
-                <fieldset>
-                  <legend className="text-sm font-semibold leading-6 text-gray-900">
-                    Requires Approval
-                  </legend>
-                  <p className="mt-1 text-sm leading-6 text-gray-600">
-                    Will participants need approval from your side to attend
-                    event after registration?
-                  </p>
-                  <div className="mt-6 space-y-6">
-                    <div className="flex items-center gap-x-3">
-                      <input
-                        id="yes"
-                        className="h-4 w-4 border-gray-300 text-[#f02e65] focus:ring-[#f02e65]"
-                        type="radio"
-                        value="Yes"
-                        name="approval"
-                      />
-                      <label
-                        // for="yes"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        Yes
-                      </label>
-                    </div>
-                    <div className="flex items-center gap-x-3">
-                      <input
-                        id="no"
-                        className="h-4 w-4 border-gray-300 text-[#f02e65] focus:ring-[#f02e65]"
-                        type="radio"
-                        value="No"
-                        name="approval"
-                      />
-                      <label
-                        // for="no"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        No
-                      </label>
-                    </div>
-                  </div>
-                </fieldset>
-              </div>
-            </div> */}
           </div>
           <div className="mt-6 flex items-center justify-center gap-x-6 py-5">
             <button
