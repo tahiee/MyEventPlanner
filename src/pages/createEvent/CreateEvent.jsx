@@ -59,7 +59,7 @@ const CreateEvent = () => {
 
     const createEvent = async (formData) => {
       try {
-        const response = await fetch(`${{baseURL}}/api/events/createevent`, { // Ensure the URL matches your route
+        const response = await fetch(`${baseURL}/api/events/createevent`, { // Ensure the URL matches your route
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}` // Include the token in the header
