@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import MainNavbar from "../../components/Navbar/MainNavbar";
 import img from '../../images/Myeventplanner__1_-removebg-preview.png';
-
+import { baseURL } from "../../constent/index";
 const MyEvents = () => {
   const [events, setEvents] = useState([]);
 
