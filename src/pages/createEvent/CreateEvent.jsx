@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import MainNavbar from "../../components/Navbar/MainNavbar";
 import { baseURL } from "../../constent";
+// import { baseURL } from "../../constent";
+
 
 const CreateEvent = () => {
   const [eventName, setEventName] = useState('');
@@ -24,14 +26,12 @@ const CreateEvent = () => {
 
   const handleFileChange = (e) => {
     setBanner(e.target.files[0]);
-    console.log(e);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const formData = new FormData();
-    console.log(formData);
     formData.append('eventname', eventName);
     formData.append('description', description);
     formData.append('banner', banner);
@@ -49,31 +49,39 @@ const CreateEvent = () => {
     formData.append('website', website);
     formData.append('instagram', instagram);
 
-    const token = localStorage.getItem('token'); // Example for fetching token from localStorage
+    const token = localStorage.getItem('token');
+    console.log(token);
 
-    // fetch(`${baseURL}/createevent`, {
-    fetch(`${baseURL}/api/auth/createevent`, {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'Authorization': `Bearer ${token}`, // Replace `yourToken` with the actual token
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          alert('response nhi ho rha')
-          throw new Error(`HTTP error! status: ${response.status}`);
+    if (!token) {
+      alert('User not authenticated');
+      return;
+    }
+
+    const createEvent = async (formData) => {
+      try {
+        const response = await fetch(`${{baseURL}}/api/events/createevent`, { // Ensure the URL matches your route
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}` // Include the token in the header
+          },
+          body: formData // Directly use formData here
+        });
+
+        const result = await response.json();
+        console.log(result);
+        if (response.ok) {
+          alert('Event created successfully');
+        } else {
+          alert('Failed to create event: ' + result.message);
         }
-        return response.json();
-      })
-      .then((data) => {
-        console.log('Success:', data);
-        alert('Event Created Successfuly');
-      })
-      .catch((error) => {
-        console.error('Error aarha yahn:', error);
-      });
+      } catch (error) {
+        console.error('Error creating event:', error);
+      }
+    };
+
+    createEvent(formData);
   };
+
 
   return (
     <>
@@ -173,7 +181,6 @@ const CreateEvent = () => {
                           id="banner"
                           accept="image/*"
                           onChange={handleFileChange}
-                          pattern="/(\.jpg|\.jpeg|\.png|\.gif)$/i"
                           className="border-2 rounded-md w-full px-3 py-2 mt-1"
                           type="file"
 
@@ -227,11 +234,11 @@ const CreateEvent = () => {
                       id="type"
                       name="type"
                       value={eventType}
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                       onChange={(e) => setEventType(e.target.value)}
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                     >
-                      <option selected="selected">In Person</option>
-                      <option>Virtual</option>
+                      <option value="In Person">In Person</option>
+                      <option value='Virtual'>Virtual</option>
                     </select>
                   </div>
                 </div>

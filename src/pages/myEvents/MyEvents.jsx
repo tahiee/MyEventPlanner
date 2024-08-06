@@ -2,23 +2,46 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import MainNavbar from "../../components/Navbar/MainNavbar";
 import img from '../../images/Myeventplanner__1_-removebg-preview.png';
-import { baseURL } from "../../constent/index";
+import { baseURL } from "../../constent";
+
 const MyEvents = () => {
   const [events, setEvents] = useState([]);
+  const token = localStorage.getItem('token'); // Adjust this based on where you store your token
+  const userId = localStorage.getItem('userId'); // Or wherever you store your user ID
 
   useEffect(() => {
-    // Fetch event data from server
     const fetchEvents = async () => {
       try {
-        const response = await axios.get(`${baseURL}/api/auth/myevents`); // Replace with your API endpoint
+        const response = await axios.get(`${baseURL}/api/events/myevents`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
         setEvents(response.data);
+        console.log(response.data, 'data received');
+
       } catch (error) {
         console.error("Error fetching events:", error);
       }
     };
 
-    fetchEvents();
-  }, []);
+    if (token) {
+      fetchEvents();
+    }
+  }, [token]);
+
+  const handleDelete = async (eventId) => {
+    try {
+      await axios.delete(`${baseURL}/api/events/deleteevent/${eventId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+        },
+      });
+      setEvents(events.filter(event => event._id !== eventId)); // Update the events state to remove the deleted event
+    } catch (error) {
+      console.error("Error deleting event:", error);
+    }
+  }
 
   return (
     <>
@@ -66,7 +89,8 @@ const MyEvents = () => {
                         <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
                           View Registrations
                         </button>
-                        <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
+                        <button onClick={() => handleDelete(event._id)}
+                          className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
                           Delete Event
                         </button>
                       </div>
