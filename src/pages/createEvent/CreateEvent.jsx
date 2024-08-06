@@ -21,7 +21,7 @@ const CreateEvent = () => {
   const [address, setAddress] = useState('');
   const [website, setWebsite] = useState('');
   const [instagram, setInstagram] = useState('');
-  
+
   const handleFileChange = (e) => {
     setBanner(e.target.files[0]);
     console.log(e);
@@ -50,9 +50,9 @@ const CreateEvent = () => {
     formData.append('instagram', instagram);
 
     const token = localStorage.getItem('token'); // Example for fetching token from localStorage
-    
+
     // fetch(`${baseURL}/createevent`, {
-      fetch('http://localhost:4001/api/auth/createevent', {
+    fetch(`${baseURL}/api/auth/createevent`, {
       method: 'POST',
       body: formData,
       headers: {
