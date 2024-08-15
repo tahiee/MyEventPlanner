@@ -19,7 +19,7 @@ const RegisterEvent = () => {
               Test Event
             </h1>
             <p className="text-gray-800 py-2 text-md sm:text-lg">
-              Hosted by Aditya
+              Hosted by Ali
             </p>
             <div className="flex flex-col sm:flex-row justify-between w-full py-1">
               <div className="flex flex-row pb-2">
@@ -32,9 +32,9 @@ const RegisterEvent = () => {
               <div className="flex flex-row pb-2">
                 <div>
                   <h3 className="text-black font-bold text-md sm:text-lg">
-                    Dehradun
+                    Ali
                   </h3>
-                  <span className="text-gray-700">Dehradun, Uttarakhand</span>
+                  <span className="text-gray-700">Lahore, Pakistan</span>
                 </div>
               </div>
             </div>
@@ -68,7 +68,7 @@ const RegisterEvent = () => {
                     Follow us on
                   </p>
                   <span className="flex justify-center py-5">
-                    <a href="https://oberai.dev/" target="_blank">
+                    <a href="" target="_blank">
                       <svg
                         stroke="currentColor"
                         fill="none"
@@ -98,7 +98,7 @@ const RegisterEvent = () => {
                         <path d="M9.5 10l1 4l1.5 -4l1.5 4l1 -4"></path>
                       </svg>
                     </a>
-                    {/* <a href="https://twitter.com/adityaoberai1" target="_blank">
+                    {/* <a href="" target="_blank">
                       <svg
                         stroke="currentColor"
                         fill="currentColor"
@@ -114,7 +114,7 @@ const RegisterEvent = () => {
                       </svg>
                     </a> */}
                     {/* <a
-                      href="https://linkedin.com/in/adityaoberai1"
+                      href=""
                       target="_blank"
                     >
                       <svg
@@ -132,7 +132,7 @@ const RegisterEvent = () => {
                       </svg>
                     </a> */}
                     <a
-                      href="https://instagram.com/adityaoberai1"
+                      href=""
                       target="_blank"
                     >
                       <svg
@@ -173,10 +173,10 @@ const RegisterEvent = () => {
               </div> */}
               <div>
                 <p className="text-gray-700 font-bold p-2 text-md sm:text-lg">
-                  Dehradun
+                  Lahore
                 </p>
                 <p className="text-black-700 p-2 text-md sm:text-lg">
-                  Dehradun, Uttarakhand, IN - 248001
+                  Lahore, Pakistan, PK - 55440
                 </p>
               </div>
             </div>
@@ -185,7 +185,7 @@ const RegisterEvent = () => {
                 Agenda
               </h3>
               <hr className="divide-black" />
-              <p className="text-black-700 p-2 text-md sm:text-lg">.NET</p>
+              <p className="text-black-700 p-2 text-md sm:text-lg">Angular Course</p>
             </div>
             <div className="bg-[#f8f9f9] mx-auto rounded-xl p-2 mb-2 sm:mb-4 divide-black">
               <h3 className="text-gray-700 px-3 pb-3 pt-1 font-bold text-md sm:text-lg">

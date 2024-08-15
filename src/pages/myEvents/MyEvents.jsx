@@ -1,25 +1,33 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import MainNavbar from "../../components/Navbar/MainNavbar";
-import img from '../../images/Myeventplanner__1_-removebg-preview.png';
+import img from "../../images/Myeventplanner__1_-removebg-preview.png";
 import { baseURL } from "../../constent";
 
+function arrayBufferToBase64(buffer) {
+  let binary = "";
+  const bytes = new Uint8Array(buffer);
+  const len = bytes.byteLength;
+  for (let i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return window.btoa(binary);
+}
 const MyEvents = () => {
   const [events, setEvents] = useState([]);
-  const token = localStorage.getItem('token'); // Adjust this based on where you store your token
-  const userId = localStorage.getItem('userId'); // Or wherever you store your user ID
+  const token = localStorage.getItem("token"); // Adjust this based on where you store your token
+  const userId = localStorage.getItem("userId"); // Or wherever you store your user ID
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         const response = await axios.get(`${baseURL}/api/events/myevents`, {
           headers: {
-            'Authorization': `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
         });
         setEvents(response.data);
-        console.log(response.data, 'data received');
-
+        console.log(response.data, "data received");
       } catch (error) {
         console.error("Error fetching events:", error);
       }
@@ -37,11 +45,11 @@ const MyEvents = () => {
           Authorization: `Bearer ${token}`, // Include the token in the Authorization header
         },
       });
-      setEvents(events.filter(event => event._id !== eventId)); // Update the events state to remove the deleted event
+      setEvents(events.filter((event) => event._id !== eventId)); // Update the events state to remove the deleted event
     } catch (error) {
       console.error("Error deleting event:", error);
     }
-  }
+  };
 
   return (
     <>
@@ -64,9 +72,11 @@ const MyEvents = () => {
                         alt={event.eventname}
                         src={
                           event.banner
-                            ? URL.createObjectURL(
-                              new Blob([event.banner.data.buffer], { type: event.banner.contentType })
-                            )
+                            ? `data:${
+                                event.banner.contentType
+                              };base64,${arrayBufferToBase64(
+                                event.banner.data.data
+                              )}`
                             : img
                         }
                       />
@@ -75,12 +85,18 @@ const MyEvents = () => {
                       <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
                         {event.eventname}
                       </h1>
-                      <p className="mb-8 leading-relaxed">{event.description}</p>
+                      <p className="mb-8 leading-relaxed">
+                        {event.description}
+                      </p>
                       <div className="flex items-center mb-2">
-                        <p className="mb-8 leading-relaxed mx-2">Type: {event.type}</p>
+                        <p className="mb-8 leading-relaxed mx-2">
+                          Type: {event.type}
+                        </p>
                       </div>
                       <div className="flex items-center mb-2">
-                        <p className="mb-8 leading-relaxed mx-2">Audience: {event.audience}</p>
+                        <p className="mb-8 leading-relaxed mx-2">
+                          Audience: {event.audience}
+                        </p>
                       </div>
                       <div className="flex justify-center">
                         <button className="inline-flex text-white bg-[#f02e65] border-0 py-2 px-6 focus:outline-none hover:bg-[#b51349] rounded text-lg">
@@ -89,8 +105,10 @@ const MyEvents = () => {
                         <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
                           View Registrations
                         </button>
-                        <button onClick={() => handleDelete(event._id)}
-                          className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
+                        <button
+                          onClick={() => handleDelete(event._id)}
+                          className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg"
+                        >
                           Delete Event
                         </button>
                       </div>
