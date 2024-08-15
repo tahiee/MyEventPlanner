@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import MainNavbar from "../../Components/Navbar/MainNavbar";
+import MainNavbar from "../../components/Navbar/MainNavbar";
 import { baseURL } from "../../constent";
 // import { baseURL } from "../../constent";
 
