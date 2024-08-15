@@ -7,3 +7,22 @@
   margin: 0;
   box-sizing: border-box;
 }
+@media only screen and (max-width: 455px) {
+  .myEvents{
+    margin-top: 12px !important;
+    margin-right: 0px !important;
+    font-weight: 600;
+    animation: blink 1s infinite; 
+  }
+  @keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+}

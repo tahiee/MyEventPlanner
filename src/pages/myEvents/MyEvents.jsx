@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import MainNavbar from "../../components/Navbar/MainNavbar";
+import MainNavbar from "../../Components/Navbar/MainNavbar";
 import img from '../../images/Myeventplanner__1_-removebg-preview.png';
 import { baseURL } from "../../constent";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { GoBroadcast } from "react-icons/go";
 import { Link, useNavigate } from "react-router-dom";
-import MainNavbar from "../../components/Navbar/MainNavbar";
+import MainNavbar from "../../Components/Navbar/MainNavbar";
 import ActiveEvents from "../activeEvents/ActiveEvents";
 import useAuth from "../useAuth/UseAuth";
 
