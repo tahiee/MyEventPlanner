@@ -12,7 +12,7 @@ const CreateEvent = () => {
   const [description, setDescription] = useState('');
   const [banner, setBanner] = useState(null);
   const [audience, setAudience] = useState('');
-  const [eventType, setEventType] = useState('');
+  const [eventType, setEventType] = useState('in Person');
   const [price, setPrice] = useState('');
   const [tech, setTech] = useState('');
   const [agenda, setAgenda] = useState('');
