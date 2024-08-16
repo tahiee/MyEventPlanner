@@ -1,25 +1,37 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import logo from '../../images/Myeventplanner__1_-removebg-preview.png';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../../images/Myeventplanner__1_-removebg-preview.png";
 
 const MainNavbar = () => {
   const navigate = useNavigate();
+  const [alertVisible, setAlertVisible] = useState(false);
 
   const handleSignOut = () => {
     localStorage.removeItem("token");
-    navigate("/login");
-    alert('SignOut Successfully')
+    setAlertVisible(true); // Show the alert
+    setTimeout(() => {
+      setAlertVisible(false); // Hide the alert after 3 seconds
+      navigate("/login");
+    }, 1000);
   };
 
   return (
     <>
+    {alertVisible && (
+        <div className="fixed top-0 left-0 w-full bg-green-500 text-white text-center py-6 z-50">
+          Signed out successfully!
+        </div>
+      )}
       <header className="text-gray-400 bg-white body-font">
         <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
           <Link to="/landing">
             <img src={logo} height={200} width={200} alt="Product Logo" />
           </Link>
           <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-            <Link className="myEvents mr-5 hover:text-gray-900 text-gray-500" to="/myevents">
+            <Link
+              className="myEvents mr-5 hover:text-gray-900 text-gray-500"
+              to="/myevents"
+            >
               My Events
             </Link>
             {/* <Link className="mr-5 hover:text-gray-900 text-gray-500" to="/createevent">
@@ -36,6 +48,6 @@ const MainNavbar = () => {
       </header>
     </>
   );
-}
+};
 
 export default MainNavbar;

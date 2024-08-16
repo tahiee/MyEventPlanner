@@ -1,51 +1,57 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../images/Myeventplanner__1_-removebg-preview.png";
 import axios from "axios";
 import { baseURL } from '../../constent';
 
 const Login = () => {
-  const [email, setEmail] = useState("test@test.com");
-  const [password, setPassword] = useState("test");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [alert, setAlert] = useState({ show: false, message: "", type: "" }); // State for alert
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log(email);
-    console.log(password);
 
     try {
-        const response = await axios.post(`${baseURL}/api/auth/login`, {
-            email,
-            password
-        });
+      const response = await axios.post(`${baseURL}/api/auth/login`, {
+        email,
+        password,
+      });
 
-        const data = response.data;
-        if (response.status === 200) {
-            alert(data.message);
-            localStorage.setItem('token', data.token);
-            navigate("/landing");
-        } else {
-            alert(data.message);
-        }
+      const data = response.data;
+      if (response.status === 200) {
+        localStorage.setItem('token', data.token);
+        setAlert({ show: true, message: "Login successful!", type: "success" });
+        setTimeout(() => navigate("/landing"), 1000);
+      } else {
+        setAlert({ show: true, message: data.message, type: "error" });
+      }
     } catch (error) {
-        console.error("Login Error:", error);
-        alert(error.response ? error.response.data.message : "An error occurred during login.");
+      setAlert({
+        show: true,
+        message: error.response ? error.response.data.message : "An error occurred during login.",
+        type: "error",
+      });
     }
-};
-
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center">
+      {alert.show && (
+        <div className={`alert ${alert.type === "error" ? "bg-red-500" : "bg-green-500"} text-white p-4 rounded-md`}>
+          {alert.message}
+          <span className="closebtn ml-2 cursor-pointer" onClick={() => setAlert({ ...alert, show: false })}>
+            &times;
+          </span>
+        </div>
+      )}
       <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md d-flex justify-center items-center">
         <div>
           <img src={logo} alt="Logo" className="mb-2" />
         </div>
         <div className="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
-          <form
-            className="justify-center items-center text-center"
-            onSubmit={handleLogin}
-          >
+          <form className="justify-center items-center text-center" onSubmit={handleLogin}>
             <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
               <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -55,10 +61,7 @@ const Login = () => {
               <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <div className="space-y-6">
                   <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
+                    <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                       Email address
                     </label>
                     <div className="mt-2">
@@ -66,7 +69,7 @@ const Login = () => {
                         id="email"
                         name="email"
                         type="email"
-                        // value='test@test.com'
+                        value={email}
                         autoComplete="email"
                         onChange={(e) => setEmail(e.target.value)}
                         required
@@ -76,17 +79,11 @@ const Login = () => {
                   </div>
                   <div>
                     <div className="flex items-center justify-between">
-                      <label
-                        htmlFor="password"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
+                      <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                         Password
                       </label>
                       <div className="text-sm">
-                        <a
-                          href="#"
-                          className="font-semibold text-indigo-600 hover:text-indigo-500"
-                        >
+                        <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
                           Forgot password?
                         </a>
                       </div>
@@ -96,7 +93,7 @@ const Login = () => {
                         id="password"
                         name="password"
                         type="password"
-                        // value='test'
+                        value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         autoComplete="current-password"
                         required
@@ -112,14 +109,12 @@ const Login = () => {
                       Sign in
                     </button>
                   </div>
-                  <span className=''>don't have an account? Signup below</span>
+                  <span className="">don't have an account? Signup below</span>
                 </div>
                 <Link to='/signup'>
-                    <button
-                      className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    >
-                      Register
-                    </button>
+                  <button className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                    Register
+                  </button>
                 </Link>
               </div>
             </div>
@@ -164,10 +159,11 @@ const Login = () => {
                     <path
                       fill="#1976D2"
                       d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571
-                      c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
+                      c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238c-0.438,0.383,6.729-4.917,6.729-14.89
+                      C44,22.659,43.862,21.35,43.611,20.083z"
                     ></path>
                   </svg>
-                  <p className="my-auto">Google</p>
+                  Google
                 </div>
               </button>
               <button
@@ -179,48 +175,23 @@ const Login = () => {
                     stroke="currentColor"
                     fill="currentColor"
                     strokeWidth="0"
-                    viewBox="0 0 1024 1024"
+                    viewBox="0 0 24 24"
                     className="text-xl my-auto"
                     height="1em"
                     width="1em"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    <path d="M511.6 76.3C264.3 76.2 64 276.4 64 523.5 64 718.9 189.3 885 363.8 946c23.5 5.9 19.9-10.8 19.9-22.2v-77.5c-135.7 15.9-141.2-73.9-150.3-88.9C215 726 171.5 718 184.5 703c30.9-15.9 62.4 4 98.9 57.9 26.4 39.1 77.9 32.5 104 26 5.7-23.5 17.9-44.5 34.7-60.8-140.6-25.2-199.2-111-199.2-213 0-49.5 16.3-95 48.3-131.7-20.4-60.5 1.9-112.3 4.9-120 58.1-5.2 118.5 41.6 123.2 45.3 33-8.9 70.7-13.6 112.9-13.6 42.4 0 80.2 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.3-43.9 2.9 7.7 24.7 58.3 5.5 118 32.4 36.8 48.9 82.7 48.9 132.3 0 102.2-59 188.1-200 212.9a127.5 127.5 0 0 1 38.1 91v112.5c.8 9 0 17.9 15 17.9 177.1-59.7 304.6-227 304.6-424.1 0-247.2-200.4-447.3-447.5-447.3z"></path>
+                    <path d="M12 2.163c-5.468 0-9.837 4.368-9.837 9.837 0 4.839 3.676 8.838 8.403 9.649-.116-.817-.22-2.073.047-2.966.235-.815 1.515-5.184 1.515-5.184s-.384-.768-.384-1.902c0-1.784 1.035-3.116 2.325-3.116 1.096 0 1.626.822 1.626 1.807 0 1.101-.701 2.742-1.062 4.263-.301 1.276.635 2.315 1.879 2.315 2.255 0 3.994-2.378 3.994-5.801 0-3.028-2.179-5.144-5.296-5.144-3.606 0-5.714 2.704-5.714 5.491 0 1.004.386 2.084.87 2.672.097.117.11.219.082.336-.09.366-.294 1.276-.334 1.451-.053.221-.173.268-.402.162-1.503-.7-2.442-2.889-2.442-4.655 0-3.78 2.746-7.261 7.916-7.261 4.152 0 7.382 2.963 7.382 6.927 0 4.121-2.598 7.436-6.207 7.436-1.21 0-2.346-.63-2.735-1.379 0 0-.653 2.605-.814 3.168-.242.89-.717 1.784-1.15 2.475.955.295 1.96.456 3.01.456 5.468 0 9.837-4.369 9.837-9.837S17.468 2.163 12 2.163z"></path>
                   </svg>
-                  <p className="my-auto">Github</p>
+                  Github
                 </div>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className="py-5">
-          <div className="grid grid-cols-2 gap-1">
-            <div className="text-center sm:text-left whitespace-nowrap">
-              <button className="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-200 focus:outline-none focus:bg-gray-300 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  className="w-4 h-4 inline-block align-text-top"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M10 19l-7-7m0 0l7-7m-7 7h18"
-                  ></path>
-                </svg>
-                <Link to="/">
-                  <span className="inline-block ml-1">Back to Home</span>
-                </Link>
               </button>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
