@@ -13,10 +13,11 @@ function arrayBufferToBase64(buffer) {
   }
   return window.btoa(binary);
 }
+
 const MyEvents = () => {
   const [events, setEvents] = useState([]);
   const token = localStorage.getItem("token"); // Adjust this based on where you store your token
-  const userId = localStorage.getItem("userId"); // Or wherever you store your user ID
+  // const userId = localStorage.getItem("userId");
   const [loading, setloading] = useState(true);
 
   useEffect(() => {

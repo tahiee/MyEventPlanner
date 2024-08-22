@@ -5,24 +5,23 @@ import MainNavbar from "../../components/Navbar/MainNavbar";
 import { baseURL } from "../../constent";
 // import { baseURL } from "../../constent";
 
-
 const CreateEvent = () => {
-  const [eventName, setEventName] = useState('');
-  const [eventdate, setEventDate] = useState('');
-  const [description, setDescription] = useState('');
+  const [eventName, setEventName] = useState("");
+  const [eventdate, setEventDate] = useState("");
+  const [description, setDescription] = useState("");
   const [banner, setBanner] = useState(null);
-  const [audience, setAudience] = useState('');
-  const [eventType, setEventType] = useState('in Person');
-  const [price, setPrice] = useState('');
-  const [tech, setTech] = useState('');
-  const [agenda, setAgenda] = useState('');
-  const [hostname, setHostname] = useState('');
-  const [email, setEmail] = useState('');
-  const [country, setCountry] = useState('');
-  const [city, setCity] = useState('');
-  const [address, setAddress] = useState('');
-  const [website, setWebsite] = useState('');
-  const [instagram, setInstagram] = useState('');
+  const [audience, setAudience] = useState("");
+  const [eventType, setEventType] = useState("in Person");
+  const [price, setPrice] = useState("");
+  const [tech, setTech] = useState("");
+  const [agenda, setAgenda] = useState("");
+  const [hostname, setHostname] = useState("");
+  const [email, setEmail] = useState("");
+  const [country, setCountry] = useState("");
+  const [city, setCity] = useState("");
+  const [address, setAddress] = useState("");
+  const [website, setWebsite] = useState("");
+  const [instagram, setInstagram] = useState("");
 
   const handleFileChange = (e) => {
     setBanner(e.target.files[0]);
@@ -32,56 +31,56 @@ const CreateEvent = () => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append('eventname', eventName);
-    formData.append('description', description);
-    formData.append('banner', banner);
-    formData.append('type', eventType);
-    formData.append('price', price);
-    formData.append('tech', tech);
-    formData.append('agenda', agenda);
-    formData.append('hostname', hostname);
-    formData.append('eventdate', eventdate);
-    formData.append('audience', audience);
-    formData.append('email', email);
-    formData.append('country', country);
-    formData.append('address', address);
-    formData.append('city', city);
-    formData.append('website', website);
-    formData.append('instagram', instagram);
+    formData.append("eventname", eventName);
+    formData.append("description", description);
+    formData.append("banner", banner);
+    formData.append("type", eventType);
+    formData.append("price", price);
+    formData.append("tech", tech);
+    formData.append("agenda", agenda);
+    formData.append("hostname", hostname);
+    formData.append("eventdate", eventdate);
+    formData.append("audience", audience);
+    formData.append("email", email);
+    formData.append("country", country);
+    formData.append("address", address);
+    formData.append("city", city);
+    formData.append("website", website);
+    formData.append("instagram", instagram);
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     console.log(token);
 
     if (!token) {
-      alert('User not authenticated');
+      alert("User not authenticated");
       return;
     }
 
     const createEvent = async (formData) => {
       try {
-        const response = await fetch(`${baseURL}/api/events/createevent`, { // Ensure the URL matches your route
-          method: 'POST',
+        const response = await fetch(`${baseURL}/api/events/createevent`, {
+          // Ensure the URL matches your route
+          method: "POST",
           headers: {
-            'Authorization': `Bearer ${token}` // Include the token in the header
+            Authorization: `Bearer ${token}`, // Include the token in the header
           },
-          body: formData // Directly use formData here
+          body: formData, // Directly use formData here
         });
 
         const result = await response.json();
         console.log(result);
         if (response.ok) {
-          alert('Event created successfully');
+          alert("Event created successfully");
         } else {
-          alert('Failed to create event: ' + result.message);
+          alert("Failed to create event: " + result.message);
         }
       } catch (error) {
-        console.error('Error creating event:', error);
+        console.error("Error creating event:", error);
       }
     };
 
     createEvent(formData);
   };
-
 
   return (
     <>
@@ -114,9 +113,7 @@ const CreateEvent = () => {
                   </div>
                 </div>
                 <div className="sm:col-span-3">
-                  <label
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
                     Event Date
                   </label>
                   <div className="mt-2">
@@ -131,10 +128,7 @@ const CreateEvent = () => {
                   </div>
                 </div>
                 <div className="col-span-full">
-                  <label
-
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
                     Description
                   </label>
                   <div className="mt-2">
@@ -152,10 +146,7 @@ const CreateEvent = () => {
                   </p>
                 </div>
                 <div className="col-span-full">
-                  <label
-
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
                     Banner photo
                   </label>
                   <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
@@ -183,7 +174,6 @@ const CreateEvent = () => {
                           onChange={handleFileChange}
                           className="border-2 rounded-md w-full px-3 py-2 mt-1"
                           type="file"
-
                         />
                       </div>
                       <p className="text-xs leading-5 text-gray-600">
@@ -203,10 +193,7 @@ const CreateEvent = () => {
               </p>
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div className="sm:col-span-3">
-                  <label
-
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
                     Target Audience
                   </label>
                   <div className="mt-2">
@@ -218,15 +205,11 @@ const CreateEvent = () => {
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       type="text"
                       onChange={(e) => setAudience(e.target.value)}
-
                     />
                   </div>
                 </div>
                 <div className="sm:col-span-3">
-                  <label
-
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
                     Event Type
                   </label>
                   <div className="mt-2">
@@ -238,15 +221,12 @@ const CreateEvent = () => {
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                     >
                       <option value="In Person">In Person</option>
-                      <option value='Virtual'>Virtual</option>
+                      <option value="Virtual">Virtual</option>
                     </select>
                   </div>
                 </div>
                 <div className="sm:col-span-4">
-                  <label
-
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
                     Ticket Price (Enter 0 if free)
                   </label>
                   <div className="mt-2">
@@ -261,10 +241,7 @@ const CreateEvent = () => {
                   </div>
                 </div>
                 <div className="sm:col-span-3">
-                  <label
-
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
                     Wifi Available
                   </label>
                   <div className="mt-2">
@@ -282,10 +259,7 @@ const CreateEvent = () => {
                   </div>
                 </div>
                 <div className="sm:col-span-3">
-                  <label
-
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
                     Agenda
                   </label>
                   <div className="mt-2">
@@ -310,10 +284,7 @@ const CreateEvent = () => {
               </p>
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div className="sm:col-span-3">
-                  <label
-
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
                     Host Name
                   </label>
                   <div className="mt-2">
@@ -330,10 +301,7 @@ const CreateEvent = () => {
                 </div>
 
                 <div className="sm:col-span-3">
-                  <label
-
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
                     Contact Email address
                   </label>
                   <div className="mt-2">
@@ -350,10 +318,7 @@ const CreateEvent = () => {
                   </div>
                 </div>
                 <div className="sm:col-span-3">
-                  <label
-
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
                     Country
                   </label>
                   <div className="mt-2">
@@ -369,10 +334,7 @@ const CreateEvent = () => {
                   </div>
                 </div>
                 <div className="sm:col-span-3 ">
-                  <label
-
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
                     City
                   </label>
                   <div className="mt-2">
@@ -388,10 +350,7 @@ const CreateEvent = () => {
                   </div>
                 </div>
                 <div className="col-span-full">
-                  <label
-
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
                     Street address
                   </label>
                   <div className="mt-2">
@@ -418,10 +377,7 @@ const CreateEvent = () => {
               </p>
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div className="sm:col-span-3">
-                  <label
-
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
                     Website link
                   </label>
                   <div className="mt-2">
@@ -438,10 +394,7 @@ const CreateEvent = () => {
                   </div>
                 </div>
                 <div className="sm:col-span-3">
-                  <label
-
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
                     Instagram link
                   </label>
                   <div className="mt-2">
@@ -461,12 +414,14 @@ const CreateEvent = () => {
             </div>
           </div>
           <div className="mt-6 flex items-center justify-center gap-x-6 py-5">
-            <button
-              type="submit"
-              className="rounded-md bg-[#f02e65] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#f02e65] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f02e65]"
-            >
-              Save
-            </button>
+            {/* <Link to='/'> */}
+              <button
+                type="submit"
+                className="rounded-md bg-[#f02e65] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#f02e65] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f02e65]"
+              >
+                Save
+              </button>
+            {/* </Link> */}
             <Link to="/landing">
               <button
                 type="submit"
@@ -483,4 +438,3 @@ const CreateEvent = () => {
 };
 
 export default CreateEvent;
-
